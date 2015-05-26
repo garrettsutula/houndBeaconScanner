@@ -11,6 +11,7 @@ Hound will:
 To-do:
 - add settings page to configure ranging (major, minor, uuid, identifier)
 - devise some basic metadata service to call to get other beacon metadata (e.g. loc, assets, etc.)
+- add a fancy dismissal animation to hound's startup card.
 
 <img src="https://github.com/garrettsutula/houndBeaconScanner/blob/master/houndScreenshot.png"/>
 
