@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/localforage.min.js"></script>
+    <script src="lib/angular-localForage.min.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/app.js"></script>
+    
+  </head>
+  <body>
+
+    <ion-pane ng-controller="mainCtrl">
+      <ion-header-bar class="bar-balanced">
+        <h1 class="title">Hound Beacon Scanner</h1>
+      </ion-header-bar>
+      <ion-content>
+          <div class="card" ng-hide="hideWelcomeMessageValue">
+              <div class="item item-text-wrap">
+                  <span>
+                      <a class="item item-avatar" href="#">
+                          <img src="img/hound.png">
+                          <h2>Greetings Autobots!</h2>
+                          <p>Hound reporting for duty, see below for all beacons in range.</p>
+                          
+                      </a>
+                  </span>
+                  <hr />
+                  <span class="balanced" ng-click="hideWelcomeMessage();"><i class="icon ion-checkmark"></i> Got it, thanks!</span>
+              </div>
+          </div>
+          <div class="list card" ng-cloak>
+              <div class="item item-divider">Beacons Found</div>
+              <div class="item item-body" ng-hide="beaconList.length">Nothing yet!</div>
+              <div class="item item-body" ng-repeat="beacon in beaconList">
+                  <div>
+                      Major/Minor: {{beacon.major}} / {{beacon.minor}}<br/>
+                      Last Seen: {{beacon.timestamp | date : 'hh:mm:ss a'}}, 
+                      <span ng-show="(lastUpdate - beacon.timestamp)/1000 <= 2">Currently in Range</span>   
+                      <span ng-show="(lastUpdate - beacon.timestamp)/1000 > 2">{{(lastUpdate - beacon.timestamp)/1000}} seconds ago</span>            
+                      <br/>
+                      Distance (m): <i class="icon ion-record {{beacon.proximity | proximityIcon}}"></i> {{beacon.proximity | proximityText}} | {{beacon.accuracy}}m | {{beacon.rssi}}<br />
+                  </div>
+              </div>
+          </div>
+      </ion-content>
+        <ion-footer-bar class="bar-stable">
+            <button class="button" ng-click="stopScanning()" ng-show="beaconRegion"><i class="icon ion-pause"></i> Pause Scanning</button>
+            <button class="button" ng-click="startScanning()" ng-hide="beaconRegion"><i class="icon ion-play"></i> Resume Scanning</button>
+            <button class="button" ng-click="clearBeaconList();"><i class="icon ion-close"></i> Clear Beacon List</button>
+        </ion-footer-bar>
+    </ion-pane>
+  </body>
+</html>
