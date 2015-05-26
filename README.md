@@ -3,7 +3,7 @@ an ionic ibeacon scanner using petermetz/cordova-plugin-ibeacon
 
 First cordova/ionic project.
 
-<img src="https://github.com/garrettsutula/houndBeaconScanner/blob/master/houndScreenshot.png"/>
+<img src="https://github.com/garrettsutula/houndBeaconScanner/blob/master/houndScreenshot.png" height="25%"/>
 
 Hound will:
 - range beacons with a specific uuid
